@@ -69,7 +69,7 @@ class Company(Base):
     description = db.Column(db.String(100))
     about = db.Column(db.String(1024))
     tags = db.Column(db.String(128))
-    stack = db.Column(db.string(128))
+    stack = db.Column(db.String(128))
     team_introduction = db.Column(db.String(256))
     welfares = db.Column(db.String(256))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='SET NULL'))
