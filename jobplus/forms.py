@@ -6,7 +6,7 @@ from .models import db, User
 class UserRegisterForm(FlaskForm):
     username = StringField('用户名', validators=[DataRequired(), Length(3,24)])
     email = StringField('邮箱', validators=[DataRequired(), Email()])
-    password = PasswordField('密码', validators=[DataRequired(), Length(6,24)])
+    password = PasswordField('密码', validators=[DataRequired(), Length(6,24, message='密码长度要在6-24个字符之间')])
     repeat_password = PasswordField('重复密码', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('提交')
 
@@ -30,7 +30,7 @@ class UserRegisterForm(FlaskForm):
 class CompanyRegisterForm(FlaskForm):
     username = StringField('企业名称', validators=[DataRequired(), Length(3,24)])
     email = StringField('邮箱', validators=[DataRequired(), Email()])
-    password = PasswordField('密码', validators=[DataRequired(), Length(6,24)])
+    password = PasswordField('密码', validators=[DataRequired(), Length(6,24, message='密码长度要在6-24个字符之间')])
     repeat_password = PasswordField('重复密码', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('提交')
 

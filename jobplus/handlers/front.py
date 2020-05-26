@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from jobplus.forms import LoginForm, UserRegisterForm, CompanyRegisterForm
-from flask_login import login_user
+from flask_login import login_user, logout_user, login_required
 from jobplus.models import User
 
 front = Blueprint('front', __name__)
@@ -35,3 +35,10 @@ def companyregister():
         flash('注册成功，请登录！','success')
         return redirect(url_for('.login'))
     return render_template('companyregister.html', form=form)
+
+@front.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash('您已退出登录','success')
+    return redirect(url_for('.index'))
