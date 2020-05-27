@@ -28,10 +28,15 @@ class User(Base, UserMixin):
     username = db.Column(db.String(32), unique=True, index=True, nullable=False)
     email = db.Column(db.String(64), unique=True, index=True, nullable=False)
     _password = db.Column('password', db.String(256), nullable=False)
+    real_name = db.Column(db.String(20))
+    phone = db.Column(db.String(11))
+    work_years = db.Column(db.SmallInteger)
     role = db.Column(db.SmallInteger, default=ROLE_USER)
-    resume = db.Column(db.String(64), unique=True, index=True, nullable=False)
+    #resume = db.Column(db.String(64), unique=True, index=True, nullable=False)
+    resume = db.Column(db.Text)
     collect_jobs = db.relationship('Job', secondary=user_job)
     upload_resume_url = db.Column(db.String(64))
+    detail = db.relationship('CompanyDetail', uselist=False)
     
     def __repr__(self):
         return '<User:{}>'.format(self.username)
@@ -42,7 +47,7 @@ class User(Base, UserMixin):
 
     @password.setter
     def password(self, orig_password):
-        self._passowrd = generate_password_hash(orig_password)
+        self._password = generate_password_hash(orig_password)
 
     def check_password(self, password):
         return check_password_hash(self._password, password)
@@ -55,16 +60,13 @@ class User(Base, UserMixin):
     def is_company(self):
         return self.role == self.ROLE_COMPANY
 
-class Company(Base):
-    __tablename__ = 'company'
+class CompanyDetail(Base):
+    __tablename__ = 'company_detail'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), nullable=False, index=True, unique=True)
     slug = db.Column(db.String(24), nullable=False, index=True, unique=True)
     logo = db.Column(db.String(64), nullable=False)
     site = db.Column(db.String(64), nullable=False)
-    contact = db.Column(db.String(24), nullable=False)
-    email = db.Column(db.String(24), nullable=False)
     location = db.Column(db.String(24), nullable=False)
     description = db.Column(db.String(100))
     about = db.Column(db.String(1024))
@@ -76,7 +78,7 @@ class Company(Base):
     user = db.relationship('User', uselist=False, backref=db.backref('company',uselist=False))
 
     def __repr__(self):
-        return '<Company {}>'.format(self.name)
+        return '<Company {}>'.format(self.id)
 
 class Job(Base):
     __tablename__ = 'job'
