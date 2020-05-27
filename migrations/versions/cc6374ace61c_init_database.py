@@ -22,7 +22,7 @@ def upgrade():
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('usernmae', sa.String(length=32), nullable=False),
+    sa.Column('username', sa.String(length=32), nullable=False),
     sa.Column('email', sa.String(length=64), nullable=False),
     sa.Column('password', sa.String(length=256), nullable=False),
     sa.Column('role', sa.SmallInteger(), nullable=True),
@@ -32,7 +32,7 @@ def upgrade():
     )
     op.create_index(op.f('ix_user_email'), 'user', ['email'], unique=True)
     op.create_index(op.f('ix_user_resume'), 'user', ['resume'], unique=True)
-    op.create_index(op.f('ix_user_usernmae'), 'user', ['usernmae'], unique=True)
+    op.create_index(op.f('ix_user_username'), 'user', ['username'], unique=True)
     op.create_table('company',
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
@@ -103,7 +103,7 @@ def downgrade():
     op.drop_index(op.f('ix_company_slug'), table_name='company')
     op.drop_index(op.f('ix_company_name'), table_name='company')
     op.drop_table('company')
-    op.drop_index(op.f('ix_user_usernmae'), table_name='user')
+    op.drop_index(op.f('ix_user_username'), table_name='user')
     op.drop_index(op.f('ix_user_resume'), table_name='user')
     op.drop_index(op.f('ix_user_email'), table_name='user')
     op.drop_table('user')
