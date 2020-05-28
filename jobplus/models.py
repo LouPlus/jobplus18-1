@@ -75,7 +75,7 @@ class CompanyDetail(Base):
     team_introduction = db.Column(db.String(256))
     welfares = db.Column(db.String(256))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='SET NULL'))
-    user = db.relationship('User', uselist=False, backref=db.backref('company',uselist=False))
+    user = db.relationship('User', uselist=False, backref=db.backref('company_detail',uselist=False))
 
     def __repr__(self):
         return '<Company {}>'.format(self.id)
@@ -93,8 +93,8 @@ class Job(Base):
     degree_requirement = db.Column(db.String(32))
     is_fulltime = db.Column(db.Boolean, default=True)
     is_open = db.Column(db.Boolean, default=True)
-    company_id = db.Column(db.Integer, db.ForeignKey('company.id', ondelete='CASCADE'))
-    company = db.relationship('Company', uselist=False)
+    company_id = db.Column(db.Integer, db.ForeignKey('company_detail.id', ondelete='CASCADE'))
+    company = db.relationship('CompanyDetail', uselist=False)
     views_count = db.Column(db.Integer, default=0)
 
     def __repr__(self):

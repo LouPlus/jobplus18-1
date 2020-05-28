@@ -7,7 +7,13 @@ from .models import db, User
 
 def register_blueprints(app):
     from .handlers import front
+    from .handlers import company
+    from .handlers import user
+    from .handlers import admin
     app.register_blueprint(front)
+    app.register_blueprint(company)
+    app.register_blueprint(user)
+    app.register_blueprint(admin)
 
 def register_extensions(app):
     db.init_app(app)
