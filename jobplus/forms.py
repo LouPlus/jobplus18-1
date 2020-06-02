@@ -120,7 +120,7 @@ class UserAdminForm(FlaskForm):
 
 class CompanyAdminForm(FlaskForm):
     name = StringField('企业名称')
-    email = StringField('邮箱', validators=[Required(), Email()])
+    email = StringField('邮箱', validators=[DataRequired(), Email()])
     password = PasswordField('密码')
     phone = StringField('手机号')
     site = StringField('公司网站', validators=[Length(0, 64)])
