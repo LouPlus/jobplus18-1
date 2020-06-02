@@ -10,6 +10,7 @@ def register_blueprints(app):
     from .handlers import company
     from .handlers import user
     from .handlers import admin
+    from .handlers import job
     app.register_blueprint(front)
     app.register_blueprint(company)
     app.register_blueprint(user)
