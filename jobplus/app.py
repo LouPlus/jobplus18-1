@@ -15,6 +15,7 @@ def register_blueprints(app):
     app.register_blueprint(company)
     app.register_blueprint(user)
     app.register_blueprint(admin)
+    app.register_blueprint(job)
 
 def register_extensions(app):
     db.init_app(app)
