@@ -43,7 +43,7 @@ def create_user():
 @admin_required
 def create_company():
     form = CompanyRegisterForm()
-    form.name.label = u'企业名称'
+    form.username.label = u'企业名称'
     if form.validate_on_submit():
         form.create_user()
         flash('企业创建成功', 'success')
